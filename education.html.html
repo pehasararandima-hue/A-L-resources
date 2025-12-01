@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitle">උසස් පෙළ අධ්‍යාපන සම්පත් | A/L Educational Resources</title>
+    
+    <style>
+        :root {
+            --color-primary: #1e88e5; 
+            --color-secondary: #42a5f5; 
+            --color-text-dark: #37474f; 
+            --color-text-light: #fff;
+            --color-border: #e0e0e0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--color-text-dark);
+            background-color: #ffffff; 
+        }
+        
+        .language-selector-container {
+            text-align: right;
+            padding: 15px 20px; 
+            background: linear-gradient(to right, #f7f7f7, #ffffff); 
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        #language-select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            
+            padding: 10px 30px 10px 15px; 
+            border-radius: 25px; 
+            border: 1px solid var(--color-primary); 
+            background-color: var(--color-text-light); 
+            color: var(--color-primary); 
+            font-size: 1em;
+            font-weight: 500;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+            outline: none;
+            transition: all 0.3s ease;
+            
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Cpath%20fill%3D%22%231e88e5%22%20d%3D%22M10%203.5L6%207.5L2%203.5L1.3%204.2L6%208.9L10.7%204.2L10%203.5z%22%2F%3E%3C%2Fsvg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 10px;
+        }
+
+        #language-select:hover {
+            background-color: #f0f8ff; 
+        }
+
+        .header {
+            background-color: var(--color-primary);
+            color: var(--color-text-light);
+            padding: 25px 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 5px;
+        }
+
+        .cover-photo-section {
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .cover-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            filter: brightness(0.7); 
+            transition: filter 0.3s ease-in-out;
+        }
+        
+        .cover-photo-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: var(--color-text-light);
+            text-align: center;
+            background: linear-gradient(to top, rgba(0,0,0,0.4), rgba(0,0,0,0.1));
+        }
+
+        .cover-photo-overlay h2 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .cover-photo-overlay p {
+            font-size: 1.2em;
+            max-width: 70%;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+        
+        .content-container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 0 15px;
+        }
+        
+        .page-description {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #78909c;
+            font-size: 1.1em;
+            font-weight: 300;
+        }
+
+        .stream-details {
+            margin-bottom: 15px;
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: box-shadow 0.3s;
+        }
+
+        .stream-details:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .stream-details summary {
+            padding: 18px 20px;
+            background-color: var(--color-secondary);
+            color: var(--color-text-light);
+            font-size: 1.25em;
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 8px 8px 0 0;
+        }
+        
+        .stream-details summary::after {
+            content: '▼';
+            font-size: 0.8em;
+            margin-left: 10px;
+            transition: transform 0.3s;
+        }
+        
+        .stream-details[open] summary::after {
+            content: '▲';
+        }
+        
+        .resource-group {
+            padding: 15px 20px;
+            background-color: #fafafa;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .resource-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .resource-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .resource-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .resource-list a {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--color-text-dark);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .resource-list a:hover {
+            color: var(--color-primary);
+        }
+        
+        .download-btn {
+            background-color: var(--color-primary);
+            color: var(--color-text-light);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+        
+        .new-label {
+            color: #d32f2f;
+            font-weight: bold;
+            font-size: 0.8em;
+            margin-left: 10px;
+        }
+
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+            background-color: #eceff1;
+            color: #78909c;
+            font-size: 0.85em;
+            border-top: 2px solid var(--color-border);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            .cover-photo-section {
+                height: 200px;
+            }
+            .cover-photo-overlay h2 {
+                font-size: 1.8em;
+            }
+            .cover-photo-overlay p {
+                font-size: 1em;
+                max-width: 85%;
+            }
+            .stream-details summary {
+                font-size: 1.1em;
+                padding: 15px 18px;
+            }
+            #language-select {
+                padding: 8px 25px 8px 10px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="language-selector-container">
+        <select id="language-select" onchange="changeLanguage(this.value)">
+            <option value="si">සිංහල (Sinhala)</option>
+            <option value="en">English (ඉංග්‍රීසි)</option>
+            <option value="ta">தமிழ் (Tamil)</option>
+        </select>
+    </div>
+
+    <header class="header">
+        <h1 id="headerH1">📚 උසස් පෙළ අධ්‍යාපන සම්පත්</h1>
+        <p id="headerP">ආපදා තත්ත්වය හමුවේ අධ්‍යාපනයට අඛණ්ඩ සහය.</p>
+    </header>
+
+    <section class="cover-photo-section">
+        
+        <img class="cover-photo" src="cover.png" alt="Sri Lankan landscape symbolizing hope and resilience. A/L Education Resources"/>
+        
+        <div class="cover-photo-overlay">
+            <h2 id="coverH2">අධ්‍යාපනය කියන්නේ ඉගිල්ලෙන්න අත්තටු</h2>
+            <p id="coverP">අභියෝග හමුවේ නොසැලී, අධ්‍යාපනයෙන් ශක්තිමත් හෙට දවසක් ගොඩනගමු.</p>
+        </div>
+    </section>
+
+    <main class="content-container">
+        
+        <p class="page-description" id="pageDescription">ඔබට අවශ්‍ය විෂය ධාරාව මත ක්ලික් කර අදාළ සටහන් සහ සම්පත් බාගත කරන්න.</p>
+        
+        <details class="stream-details" open>
+            <summary id="stream1Summary">🧬 විද්‍යා/ගණිත විෂය ධාරාව (Science/Maths)</summary>
+            <div class="resource-group">
+                <ul class="resource-list">
+                    <li><a href="https://drive.google.com/drive/folders/1Cm3wD7ziKPmNo5SxNQU1ZFeyP7eMbIWC?usp=drive_link" target="_blank"><span id="s1r1">සංයුක්ත ගණිතය (Combined Maths) - සටහන්</span><span class="download-btn">බාගත කරන්න ⬇️</span></a></li>
+                    <li><a href="https://drive.google.com/drive/folders/1Zmy_K5NFCx5DU2F3AkG551xxLwinxXz2?usp=drive_link" target="_blank"><span id="s1r2">රසායන විද්‍යාව (Chemistry) - Past Papers</span><span class="download-btn">බාගත කරන්න ⬇️</span></a></li>
+                    <li><a href="https://drive.google.com/drive/folders/1zh1lvoQr1XMZpfa6BGJ7-bSso3ZEZvpy?usp=drive_link" target="_blank"><span id="s1r3">භෞතික විද්‍යාව (Physics) - සම්පත්</span><span class="download-btn">බාගත කරන්න ⬇️</span></a></li>
+                    <li><a href="https://drive.google.com/drive/folders/1zxE8FG7l0-n62Le0eU6tmfNoR0PCfDks?usp=drive_link" target="_blank"><span id="s1r4">ජීව විද්‍යාව (Biology) - සටහන්</span><span class="download-btn">බාගත කරන්න ⬇️</span></a></li>
+                    <li><a href="https://drive.google.com/file/d/14hPdgc67OrM6X57ONexej200EWdvDYFx/view" target="_blank"><span id="s1r5">Biology Resource Books</span><span class="download-btn new-label">New ⬇️</span></a></li>
+                </ul>
+            </div>
+        </details>
+
+        <details class="stream-details">
+            <summary id="stream2Summary">📊 වාණිජ විෂය ධාරාව (Commerce)</summary>
+            <div class="resource-group">
+                <ul class="resource-list">
+                    <li><a href="https://drive.google.com/drive/folders/1-O1FT1xIzwFL2ZCMis49wVyFKQC3-oP6?usp=drive_link" target="_blank"><span id="s2r1">ගිණුම්කරණය (Accounting) - සටහන්</span><span class="download-btn">බාගත කරන්න ⬇️</span></a></li>
+                    <li><a href="https://drive.google.com/drive/folders/1gYi4nVTyiF4qbDKlaVfrwM67_I5APbd7" target="_blank"><span id="s2r2">ගිණුම්කරණය (Accounting) - New Links</span><span class="download-btn new-label">New ⬇️</span></a></li>
+                    <li><a href="https://drive.google.com/drive/folders/1tngYjYv3ITBUeAmq4seq_6AC9Z0WJRx-?usp=drive_link" target="_blank"><span id="s2r3">ගිණුම්කරණය (Accounting) - New Links 2</span><span class="download-btn new-label">New ⬇️</span></a></li>
+                    <li><a href="https://drive.google.com/drive/folders/1AXn32x_5VV0m1JjbhxwblQSKEnI_ARiE" target="_blank"><span id="s2r4">ගිණුම්කරණය (Accounting) - Past Papers</span><span class="download-btn new-label">New ⬇️</span></a></li>
+                    <li><a href="https://drive.google.com/drive/folders/11F_mLPWZrKf1rvS8OviRBW3BAWW3adSB?usp=drive_link" target="_blank"><span id="s2r5">ව්‍යාපාර අධ්‍යයනය (Business Studies)</span><span class="download-btn">බාගත කරන්න ⬇️</span></a></li>
+                    <li><a href="https://drive.google.com/drive/folders/1A9FyCh1DpPvRlyQrpbQFdMn2N7qTwckZ" target="_blank"><span id="s2r6">ව්‍යාපාර අධ්‍යයනය (Business Studies) - New Link</span><span class="download-btn new-label">New ⬇️</span></a></li>
+                    <li><a href="https://drive.google.com/drive/folders/1HbwfySGFb9i21HkpEmAxBhigXt60zcUV?usp=drive_link" target="_blank"><span id="s2r7">ආර්ථික විද්‍යාව (Economics) - සම්පත්</span><span class="download-btn">බාගත කරන්න ⬇️</span></a></li>
+                    <li><a href="https://drive.google.com/drive/folders/1XyyuXbpnAGIzAAF0PNMAzKOIy41r5cVS" target="_blank"><span id="s2r8">ආර්ථික විද්‍යාව (Economics) - New Link</span><span class="download-btn new-label">New ⬇️</span></a></li>
+                    <li><a href="https://drive.google.com/drive/folders/1OhuHL_aZGL6H19sDHl4gVC7Kmqelud_O?usp=drive_link" target="_blank"><span id="s2r9">සංඛ්‍යායන (Statistics)</span><span class="download-btn">බාගත කරන්න ⬇️</span></a></li>
+                    <li><a href="https://drive.google.com/drive/folders/1tngYjYv3ITBUeAmq4seq_6AC9Z0WJRx-?usp=drive_link" target="_blank"><span id="s2r10">සංඛ්‍යායන (Statistics) - New Link</span><span class="download-btn new-label">New ⬇️</span></a></li>
+                </ul>
+            </div>
+        </details>
+        
+        <details class="stream-details">
+            <summary id="stream3Summary">⚙️ තාක්ෂණ විෂය ධාරාව (Technology)</summary>
+            <div class="resource-group">
+                <ul class="resource-list">
+                    <li><a href="https://drive.google.com/drive/folders/1_rmapxLUZ9ENnD8jni8zKkmiRB2ukxoK?usp=drive_link" target="_blank"><span id="s3r1">තොරතුරු තාක්ෂණය (ICT) - සම්පත්</span><span class="download-btn">බාගත කරන්න ⬇️</span></a></li>
+                    <li><a href="https://drive.google.com/drive/folders/1mPdYHQHH4LO_eWINv9vEUkfdPZ2bxe5v?usp=drive_link" target="_blank"><span id="s3r2">තොරතුරු තාක්ෂණය (ICT) - KDJ Link</span><span class="download-btn new-label">New ⬇️</span></a></li>
+                    <li><a href="https://drive.google.com/drive/folders/1-VrKpVEeCT1DDuy0c3FRC5vaSaTluAyN?usp=drive_link" target="_blank"><span id="s3r3">තොරතුරු තාක්ෂණය (ICT) - New Links</span><span class="download-btn new-label">New ⬇️</span></a></li>
+                    <li><a href="https://drive.google.com/drive/folders/15z1-KLgSI---hfqo08O_GIaQu1qgJGe7" target="_blank"><span id="s3r4">තොරතුරු තාක්ෂණය (ICT) - New Links 2</span><span class="download-btn new-label">New ⬇️</span></a></li>
+                    <li><a href="https://drive.google.com/drive/folders/1l8Qr2p3DktLO4Encg74uk_TKDM5iByB" target="_blank"><span id="s3r5">තොරතුරු තාක්ෂණය (ICT) - Password Link (sub@kavidx)</span><span class="download-btn new-label">New ⬇️</span></a></li>
+                    <li><a href="https://drive.google.com/drive/folders/1mwZTEiM7NhNo5XJsotSWoFcWvQK7n0Pm" target="_blank"><span id="s3r6">ICT Short Notes</span><span class="download-btn new-label">New ⬇️</span></a></li>
+                    <li><a href="https://drive.google.com/drive/folders/1amE5IYRi_jE0BgGzDkTezYZuBd7ZACpV?usp=drive_link" target="_blank"><span id="s3r7">ඉංජිනේරු තාක්ෂණවේදය (ET)</span><span class="download-btn">බාගත කරන්න ⬇️</span></a></li>
+                    <li><a href="https://drive.google.com/drive/folders/1CqiLw8a4wVSWlLO8C69NfDit2wWMa3eT?usp=drive_link" target="_blank"><span id="s3r8">ඉංජිනේරු තාක්ෂණවේදය (ET) - KDJ Link</span><span class="download-btn new-label">New ⬇️</span></a></li>
+                    <li><a href="https://drive.google.com/drive/folders/1yoGexkM9eQslFzUDb5EddorZw-SqlC-w?usp=drive_link" target="_blank"><span id="s3r9">ජෛව පද්ධති තාක්ෂණවේදය (BST)</span><span class="download-btn">බාගත කරන්න ⬇️</span></a></li>
+                    <li><a href="https://drive.google.com/drive/folders/1seCLKh2WOuMj6ITjjIx31xo7EHbUii_9?usp=drive_link" target="_blank"><span id="s3r10">තාක්ෂණවේදය සඳහා විද්‍යාව (SFT)</span><span class="download-btn">බාගත කරන්න ⬇️</span></a></li>
+                    <li><a href="https://drive.google.com/drive/folders/1TkZzT34I5XaVne_no8ZnMSPSOvbNofIx?usp=drive_link" target="_blank"><span id="s3r11">තාක්ෂණවේදය සඳහා විද්‍යාව (SFT) - KDJ Link</span><span class="download-btn new-label">New ⬇️</span></a></li>
+                </ul>
+            </div>
+        </details>
+
+        <details class="stream-details">
+            <summary id="stream4Summary">🎨 කලා විෂය ධාරාව සහ භාෂා (Arts & Languages)</summary>
+            <div class="resource-group">
+                <ul class="resource-list">
+                    <li><a href="https://drive.google.com/drive/folders/1ikjSX6pid7x0D1MivCgPz1HZmDHRurMp?usp=drive_link" target="_blank"><span id="s4r1">සිංහල (Sinhala) - සටහන්</span><span class="download-btn">බාගත කරන්න ⬇️</span></a></li>
+                    <li><a href="https://drive.google.com/drive/folders/10v36oT_2Vw7Tmud-_sVf0SYouNdouaU0?usp=drive_link" target="_blank"><span id="s4r2">සිංහල (Sinhala) - New Link</span><span class="download-btn new-label">New ⬇️</span></a></li>
+                    <li><a href="https://drive.google.com/drive/folders/1pIqNAqtdLFcdK_1GgSM6ns50ie1gKsix?usp=drive_link" target="_blank"><span id="s4r3">බුද්ධ ධර්මය (Buddhism)</span><span class="download-btn new-label">New ⬇️</span></a></li>
+                    <li><a href="https://drive.google.com/drive/folders/1FSNAdMb6kU7pk4vPGkG1lzsYyJFW5jaK?usp=drive_link" target="_blank"><span id="s4r4">භූගෝල විද්‍යාව (Geography)</span><span class="download-btn">බාගත කරන්න ⬇️</span></a></li>
+                    <li><a href="https://drive.google.com/drive/folders/198Z48q-hl9n4H-Ej18ORerWnvNoHK4ox" target="_blank"><span id="s4r5">භූගෝල විද්‍යාව (Geography) - New Links</span><span class="download-btn new-label">New ⬇️</span></a></li>
+                    <li><a href="https://drive.google.com/drive/folders/116b3y63ZZXncT2HT7uV-7o4Oc3YNPl_-" target="_blank"><span id="s4r6">භූගෝල විද්‍යාව (Geography) - New Links 2</span><span class="download-btn new-label">New ⬇️</span></a></li>
+                    <li><a href="https://drive.google.com/drive/folders/1O5-pm2Um9R9P7-hwS6Ub6IugT6cIOvoT?usp=drive_link" target="_blank"><span id="s4r7">ඉංග්‍රීසි භාෂාව (English)</span><span class="download-btn">බාගත කරන්න ⬇️</span></a></li>
+                    <li><a href="https://drive.google.com/drive/folders/1CgGxebdb5AO2BghT2Rz37gphruaus0X4?usp=drive_link" target="_blank"><span id="s4r8">ජපන් භාෂාව (Japanese - Updated/N5)</span><span class="download-btn">බාගත කරන්න ⬇️</span></a></li>
+                    <li><a href="https://drive.google.com/drive/folders/10gFiRBZe_OiUtR9nzDR28WvYkXPx4Rry?usp=drive_link" target="_blank"><span id="s4r9">ජපන් භාෂාව (Japanese) - New Link</span><span class="download-btn new-label">New ⬇️</span></a></li>
+                    <li><a href="https://drive.google.com/drive/folders/1Piqc_QyvfDOmJNndjFzcL147_Fd-UcHL" target="_blank"><span id="s4r10">ජපන් භාෂාව (Japanese) - New Link 2</span><span class="download-btn new-label">New ⬇️</span></a></li>
+                    <li><a href="https://drive.google.com/drive/folders/1T7HoZG7G19toPgGeT1xoMzaObJnFd8h7?usp=drive_link" target="_blank"><span id="s4r11">ජපන් භාෂාව (Japanese) - N5 Link</span><span class="download-btn new-label">New ⬇️</span></a></li>
+                    <li><a href="https://drive.google.com/drive/folders/1O-g9-zzAKYjl2VAOu7Ap6hhgS703qzE1?usp=drive_link" target="_blank"><span id="s4r12">හින්දි භාෂාව (Hindi)</span><span class="download-btn new-label">New ⬇️</span></a></li>
+                    <li><a href="https://drive.google.com/drive/folders/1mbBF-CQiAzgjoW82rE3VN8UqoRNAoxC-?usp=drive_link" target="_blank"><span id="s4r13">හින්දි භාෂාව (Hindi) - New Link</span><span class="download-btn new-label">New ⬇️</span></a></li>
+                    <li><a href="https://drive.google.com/drive/folders/1t1JfU0OsBcoYiLn2H9sG7XtkFo2Yhgmp?usp=drive_link" target="_blank"><span id="s4r14">දෙමළ භාෂාව (Tamil)</span><span class="download-btn new-label">New ⬇️</span></a></li>
+                    <li><a href="https://drive.google.com/drive/folders/1e2w52bcOMQ-StMf0EJZaDs9q3lRUYjkg?usp=drive_link" target="_blank"><span id="s4r15">කොරියානු භාෂාව (Korean)</span><span class="download-btn new-label">New ⬇️</span></a></li>
+                    <li><a href="https://drive.google.com/drive/folders/1sr240HlZeGvaXCFkifZZaFrTPeBguAnJ?usp=drive_link" target="_blank"><span id="s4r16">ඉතිහාසය (Sri Lanka History)</span><span class="download-btn new-label">New ⬇️</span></a></li>
+                    <li><a href="https://drive.google.com/drive/folders/1rhAe9-otFJmjjOrPiB7UJGCcEhxLcEDv?usp=drive_link" target="_blank"><span id="s4r17">ඉතිහාසය (Indian History)</span><span class="download-btn new-label">New ⬇️</span></a></li>
+                    <li><a href="https://drive.google.com/drive/folders/1aiWtejG7bIwcYvwnMx-yJeLuq4o4XPHp" target="_blank"><span id="s4r18">මාධ්‍ය අධ්‍යයනය (Media Studies)</span><span class="download-btn new-label">New ⬇️</span></a></li>
+                    <li><a href="https://drive.google.com/drive/folders/1lc7XdfpIPF2E-H-AZGkjKqeYgtTuvLTn?usp=sharing" target="_blank"><span id="s4r19">තර්ක ශාස්ත්‍රය (Logic)</span><span class="download-btn new-label">New ⬇️</span></a></li>
+                    <li><a href="https://drive.google.com/drive/folders/1b7qWzH19HBtcT5tk5NsWz8xOYMoyzf5M?usp=drive_link" target="_blank"><span id="s4r20">සංගීතය (Music)</span><span class="download-btn new-label">New ⬇️</span></a></li>
+                    <li><a href="https://drive.google.com/drive/folders/194l24EKiCHjv5bMZ0ST1BuEvHzuxJTA_?usp=drive_link" target="_blank"><span id="s4r21">නර්තනය (Dancing)</span><span class="download-btn new-label">New ⬇️</span></a></li>
+                    <li><a href="https://drive.google.com/drive/folders/1nnq8OuBBDITeIWrfQQ5CQSSFIiffMIB5?usp=drive_link" target="_blank"><span id="s4r22">කෘෂිකර්මය (Agriculture)</span><span class="download-btn new-label">New ⬇️</span></a></li>
+                    <li><a href="https://drive.google.com/drive/folders/1OoBk93u1NmMoeX1q6AK5fKqh3lopCHPa" target="_blank"><span id="s4r23">මාධ්‍ය (Media) - New Link</span><span class="download-btn new-label">New ⬇️</span></a></li>
+                    <li><a href="https://drive.google.com/drive/folders/1GiDkzRW1FcZeY895WJpZN8a61At2JMoF?usp=drive_link" target="_blank"><span id="s4r24">මාධ්‍ය (Media) - New Link 2</span><span class="download-btn new-label">New ⬇️</span></a></li>
+                    <li><a href="https://drive.google.com/file/d/1hHQDeHsUQlkY5mpoHVGwkrRkimGn8r5F/view?usp=drivesdk" target="_blank"><span id="s4r25">ගෘහ විද්‍යාව (Home Science) - New Link</span><span class="download-btn new-label">New ⬇️</span></a></li>
+                    <li><a href="https://drive.google.com/file/d/1601yqkiyTimiSgzje5EdnTV1r095Kbbg/view" target="_blank"><span id="s4r26">ගෘහ විද්‍යාව (Home Science) - New Link 2</span><span class="download-btn new-label">New ⬇️</span></a></li>
+                </ul>
+            </div>
+        </details>
+        
+    </main>
+
+    <footer class="footer">
+        <p id="footerText">&copy; 2025 ගංවතුර සහන සේවය. මෙම සටහන් **Charuni Senadheera සහ KDJ ඇතුළු සියලුම සටහන් හිමිකරුවන්ගේ** අවසරය මත පමණක් භාවිත කරන්න. සියලුම සම්පත් හිමිකරුවන්ට ස්තුතියි.</p>
+    </footer>
+
+    <script>
+        const translations = {
+            si: {
+                pageTitle: 'උසස් පෙළ අධ්‍යාපන සම්පත්',
+                headerH1: '📚 උසස් පෙළ අධ්‍යාපන සම්පත්',
+                headerP: 'ආපදා තත්ත්වය හමුවේ අධ්‍යාපනයට අඛණ්ඩ සහය.',
+                coverH2: 'අධ්‍යාපනය කියන්නේ ඉගිල්ලෙන්න අත්තටු',
+                coverP: 'අභියෝග හමුවේ නොසැලී, අධ්‍යාපනයෙන් ශක්තිමත් හෙට දවසක් ගොඩනගමු.',
+                pageDescription: 'ඔබට අවශ්‍ය විෂය ධාරාව මත ක්ලික් කර අදාළ සටහන් සහ සම්පත් බාගත කරන්න.',
+                stream1Summary: '🧬 විද්‍යා/ගණිත විෂය ධාරාව (Science/Maths)',
+                s1r1: 'සංයුක්ත ගණිතය (Combined Maths) - සටහන්',
+                s1r2: 'රසායන විද්‍යාව (Chemistry) - Past Papers',
+                s1r3: 'භෞතික විද්‍යාව (Physics) - සම්පත්',
+                s1r4: 'ජීව විද්‍යාව (Biology) - සටහන්',
+                s1r5: 'Biology Resource Books',
+                stream2Summary: '📊 වාණිජ විෂය ධාරාව (Commerce)',
+                s2r1: 'ගිණුම්කරණය (Accounting) - සටහන්',
+                s2r2: 'ගිණුම්කරණය (Accounting) - New Links',
+                s2r3: 'ගිණුම්කරණය (Accounting) - New Links 2',
+                s2r4: 'ගිණුම්කරණය (Accounting) - Past Papers',
+                s2r5: 'ව්‍යාපාර අධ්‍යයනය (Business Studies)',
+                s2r6: 'ව්‍යාපාර අධ්‍යයනය (Business Studies) - New Link',
+                s2r7: 'ආර්ථික විද්‍යාව (Economics) - සම්පත්',
+                s2r8: 'ආර්ථික විද්‍යාව (Economics) - New Link',
+                s2r9: 'සංඛ්‍යායන (Statistics)',
+                s2r10: 'සංඛ්‍යායන (Statistics) - New Link',
+                stream3Summary: '⚙️ තාක්ෂණ විෂය ධාරාව (Technology)',
+                s3r1: 'තොරතුරු තාක්ෂණය (ICT) - සම්පත්',
+                s3r2: 'තොරතුරු තාක්ෂණය (ICT) - KDJ Link',
+                s3r3: 'තොරතුරු තාක්ෂණය (ICT) - New Links',
+                s3r4: 'තොරතුරු තාක්ෂණය (ICT) - New Links 2',
+                s3r5: 'තොරතුරු තාක්ෂණය (ICT) - Password Link (sub@kavidx)',
+                s3r6: 'ICT Short Notes',
+                s3r7: 'ඉංජිනේරු තාක්ෂණවේදය (ET)',
+                s3r8: 'ඉංජිනේරු තාක්ෂණවේදය (ET) - KDJ Link',
+                s3r9: 'ජෛව පද්ධති තාක්ෂණවේදය (BST)',
+                s3r10: 'තාක්ෂණවේදය සඳහා විද්‍යාව (SFT)',
+                s3r11: 'තාක්ෂණවේදය සඳහා විද්‍යාව (SFT) - KDJ Link',
+                stream4Summary: '🎨 කලා විෂය ධාරාව සහ භාෂා (Arts & Languages)',
+                s4r1: 'සිංහල (Sinhala) - සටහන්',
+                s4r2: 'සිංහල (Sinhala) - New Link',
+                s4r3: 'බුද්ධ ධර්මය (Buddhism)',
+                s4r4: 'භූගෝල විද්‍යාව (Geography)',
+                s4r5: 'භූගෝල විද්‍යාව (Geography) - New Links',
+                s4r6: 'භූගෝල විද්‍යාව (Geography) - New Links 2',
+                s4r7: 'ඉංග්‍රීසි භාෂාව (English)',
+                s4r8: 'ජපන් භාෂාව (Japanese - Updated/N5)',
+                s4r9: 'ජපන් භාෂාව (Japanese) - New Link',
+                s4r10: 'ජපන් භාෂාව (Japanese) - New Link 2',
+                s4r11: 'ජපන් භාෂාව (Japanese) - N5 Link',
+                s4r12: 'හින්දි භාෂාව (Hindi)',
+                s4r13: 'හින්දි භාෂාව (Hindi) - New Link',
+                s4r14: 'දෙමළ භාෂාව (Tamil)',
+                s4r15: 'කොරියානු භාෂාව (Korean)',
+                s4r16: 'ඉතිහාසය (Sri Lanka History)',
+                s4r17: 'ඉතිහාසය (Indian History)',
+                s4r18: 'මාධ්‍ය අධ්‍යයනය (Media Studies)',
+                s4r19: 'තර්ක ශාස්ත්‍රය (Logic)',
+                s4r20: 'සංගීතය (Music)',
+                s4r21: 'නර්තනය (Dancing)',
+                s4r22: 'කෘෂිකර්මය (Agriculture)',
+                s4r23: 'මාධ්‍ය (Media) - New Link',
+                s4r24: 'මාධ්‍ය (Media) - New Link 2',
+                s4r25: 'ගෘහ විද්‍යාව (Home Science) - New Link',
+                s4r26: 'ගෘහ විද්‍යාව (Home Science) - New Link 2',
+                
+                downloadBtn: 'බාගත කරන්න ⬇️',
+                footerText: '© 2025 ගංවතුර සහන සේවය. මෙම සටහන් **Charuni Senadheera සහ KDJ ඇතුළු සියලුම සටහන් හිමිකරුවන්ගේ** අවසරය මත පමණක් භාවිත කරන්න. සියලුම සම්පත් හිමිකරුවන්ට ස්තුතියි.',
+                newLabel: 'නව ⬇️'
+            },
+            en: {
+                pageTitle: 'A/L Educational Resources',
+                headerH1: '📚 A/L Educational Resources',
+                headerP: 'Continuous support for education amidst disaster.',
+                coverH2: "Education is the wings to fly",
+                coverP: "Stand strong against challenges, let's build a stronger tomorrow through education.",
+                pageDescription: 'Click on the required subject stream to download relevant notes and resources.',
+                stream1Summary: '🧬 Science/Maths Stream',
+                s1r1: 'Combined Maths - Notes',
+                s1r2: 'Chemistry - Past Papers',
+                s1r3: 'Physics - Resources',
+                s1r4: 'Biology - Notes',
+                s1r5: 'Biology Resource Books',
+                stream2Summary: '📊 Commerce Stream',
+                s2r1: 'Accounting - Notes',
+                s2r2: 'Accounting - New Links',
+                s2r3: 'Accounting - New Links 2',
+                s2r4: 'Accounting - Past Papers',
+                s2r5: 'Business Studies',
+                s2r6: 'Business Studies - New Link',
+                s2r7: 'Economics - Resources',
+                s2r8: 'Economics - New Link',
+                s2r9: 'Statistics',
+                s2r10: 'Statistics - New Link',
+                stream3Summary: '⚙️ Technology Stream',
+                s3r1: 'Information Technology (ICT) - Resources',
+                s3r2: 'Information Technology (ICT) - KDJ Link',
+                s3r3: 'Information Technology (ICT) - New Links',
+                s3r4: 'Information Technology (ICT) - New Links 2',
+                s3r5: 'Information Technology (ICT) - Password Link (sub@kavidx)',
+                s3r6: 'ICT Short Notes',
+                s3r7: 'Engineering Technology (ET)',
+                s3r8: 'Engineering Technology (ET) - KDJ Link',
+                s3r9: 'Bio Systems Technology (BST)',
+                s3r10: 'Science for Technology (SFT)',
+                s3r11: 'Science for Technology (SFT) - KDJ Link',
+                stream4Summary: '🎨 Arts Stream and Languages',
+                s4r1: 'Sinhala - Notes',
+                s4r2: 'Sinhala - New Link',
+                s4r3: 'Buddhism',
+                s4r4: 'Geography',
+                s4r5: 'Geography - New Links',
+                s4r6: 'Geography - New Links 2',
+                s4r7: 'English Language',
+                s4r8: 'Japanese Language (Updated/N5)',
+                s4r9: 'Japanese Language - New Link',
+                s4r10: 'Japanese Language - New Link 2',
+                s4r11: 'Japanese Language - N5 Link',
+                s4r12: 'Hindi Language',
+                s4r13: 'Hindi Language - New Link',
+                s4r14: 'Tamil Language',
+                s4r15: 'Korean Language',
+                s4r16: 'History (Sri Lanka History)',
+                s4r17: 'History (Indian History)',
+                s4r18: 'Media Studies',
+                s4r19: 'Logic',
+                s4r20: 'Music',
+                s4r21: 'Dancing',
+                s4r22: 'Agriculture',
+                s4r23: 'Media - New Link',
+                s4r24: 'Media - New Link 2',
+                s4r25: 'Home Science - New Link',
+                s4r26: 'Home Science - New Link 2',
+                
+                downloadBtn: 'Download ⬇️',
+                footerText: '© 2025 Flood Relief Service. These notes must only be used with the permission of all owners including **Charuni Senadheera and KDJ**. Thank you to all resource owners.',
+                newLabel: 'New ⬇️'
+                
+            },
+            ta: {
+                pageTitle: 'உ/தர கல்வி வளங்கள்',
+                headerH1: '📚 உ/தர கல்வி வளங்கள்',
+                headerP: 'பேரழிவு மத்தியில் கல்விக்கு தொடர்ச்சியான ஆதரவு.',
+                coverH2: 'கல்வி என்பது பறப்பதற்கான சிறகுகள்',
+                coverP: 'சவால்களுக்கு அஞ்சாமல், கல்வியின் மூலம் ஒரு சிறந்த நாளை உருவாக்குவோம்.',
+                pageDescription: 'தேவையான பாடப்பிரிவைக் கிளிக் செய்து, சம்பந்தப்பட்ட குறிப்புகள் மற்றும் வளங்களைப் பதிவிறக்கவும்.',
+                stream1Summary: '🧬 விஞ்ஞானம்/கணிதப் பிரிவு (Science/Maths)',
+                s1r1: 'கணிதம் (Combined Maths) - குறிப்புகள்',
+                s1r2: 'இரசாயனவியல் (Chemistry) - கடந்த காலப் பத்திரிகைகள்',
+                s1r3: 'பௌதீகவியல் (Physics) - வளங்கள்',
+                s1r4: 'உயிரியல் (Biology) - குறிப்புகள்',
+                s1r5: 'உயிரியல் வளப் புத்தகங்கள்',
+                stream2Summary: '📊 வர்த்தகப் பிரிவு (Commerce)',
+                s2r1: 'கணக்கியல் (Accounting) - குறிப்புகள்',
+                s2r2: 'கணக்கியல் (Accounting) - புதிய இணைப்புகள்',
+                s2r3: 'கணக்கியல் (Accounting) - புதிய இணைப்புகள் 2',
+                s2r4: 'கணக்கியல் (Accounting) - கடந்த காலப் பத்திரிகைகள்',
+                s2r5: 'வியாபாரக் கற்கைகள் (Business Studies)',
+                s2r6: 'வியாபாரக் கற்கைகள் (Business Studies) - புதிய இணைப்பு',
+                s2r7: 'பொருளாதாரம் (Economics) - வளங்கள்',
+                s2r8: 'பொருளாதாரம் (Economics) - புதிய இணைப்பு',
+                s2r9: 'புள்ளியியல் (Statistics)',
+                s2r10: 'புள்ளியியல் (Statistics) - புதிய இணைப்பு',
+                stream3Summary: '⚙️ தொழில்நுட்பப் பிரிவு (Technology)',
+                s3r1: 'தகவல் தொழில்நுட்பம் (ICT) - வளங்கள்',
+                s3r2: 'தகவல் தொழில்நுட்பம் (ICT) - KDJ இணைப்பு',
+                s3r3: 'தகவல் தொழில்நுட்பம் (ICT) - புதிய இணைப்புகள்',
+                s3r4: 'தகவல் தொழில்நுட்பம் (ICT) - புதிய இணைப்புகள் 2',
+                s3r5: 'தகவல் தொழில்நுட்பம் (ICT) - கடவுச்சொல் இணைப்பு (sub@kavidx)',
+                s3r6: 'ICT சுருக்கமான குறிப்புகள்',
+                s3r7: 'பொறியியல் தொழில்நுட்பம் (ET)',
+                s3r8: 'பொறியியல் தொழில்நுட்பம் (ET) - KDJ இணைப்பு',
+                s3r9: 'உயிரியல் முறைமைகள் தொழில்நுட்பம் (BST)',
+                s3r10: 'தொழில்நுட்பத்திற்கான விஞ்ஞானம் (SFT)',
+                s3r11: 'தொழில்நுட்பத்திற்கான விஞ்ஞானம் (SFT) - KDJ இணைப்பு',
+                stream4Summary: '🎨 கலைப் பிரிவு மற்றும் மொழிகள் (Arts & Languages)',
+                s4r1: 'சிங்களம் (Sinhala) - குறிப்புகள்',
+                s4r2: 'சிங்களம் (Sinhala) - புதிய இணைப்பு',
+                s4r3: 'பௌத்தம் (Buddhism)',
+                s4r4: 'புவியியல் (Geography)',
+                s4r5: 'புவியியல் (Geography) - புதிய இணைப்புகள்',
+                s4r6: 'புவியியல் (Geography) - புதிய இணைப்புகள் 2',
+                s4r7: 'ஆங்கில மொழி (English)',
+                s4r8: 'ஜப்பானிய மொழி (Japanese - Updated/N5)',
+                s4r9: 'ஜப்பானிய மொழி (Japanese) - புதிய இணைப்பு',
+                s4r10: 'ஜப்பானிய மொழி (Japanese) - புதிய இணைப்பு 2',
+                s4r11: 'ஜப்பானிய மொழி (Japanese) - N5 இணைப்பு',
+                s4r12: 'ஹிந்தி மொழி (Hindi)',
+                s4r13: 'ஹிந்தி மொழி (Hindi) - புதிய இணைப்பு',
+                s4r14: 'தமிழ் மொழி (Tamil)',
+                s4r15: 'கொரிய மொழி (Korean)',
+                s4r16: 'வரலாறு (இலங்கை வரலாறு)',
+                s4r17: 'வரலாறு (இந்திய வரலாறு)',
+                s4r18: 'ஊடகக் கற்கைகள் (Media Studies)',
+                s4r19: 'தர்க்கவியல் (Logic)',
+                s4r20: 'இசை (Music)',
+                s4r21: 'நடனம் (Dancing)',
+                s4r22: 'விவசாயம் (Agriculture)',
+                s4r23: 'ஊடகம் (Media) - புதிய இணைப்பு',
+                s4r24: 'ஊடகம் (Media) - புதிய இணைப்பு 2',
+                s4r25: 'இல்லற விஞ்ஞானம் (Home Science) - புதிய இணைப்பு',
+                s4r26: 'இல்லற விஞ்ஞானம் (Home Science) - புதிய இணைப்பு 2',
+                
+                downloadBtn: 'பதிவிறக்கு ⬇️',
+                footerText: '© 2025 வெள்ள நிவாரண சேவை. இந்த குறிப்புகள் **Charuni Senadheera மற்றும் KDJ உட்பட அனைத்து குறிப்பு உரிமையாளர்களின்** அனுமதியுடன் மட்டுமே பயன்படுத்தப்பட வேண்டும். அனைத்து வள உரிமையாளர்களுக்கும் நன்றி.',
+                newLabel: 'புதியது ⬇️'
+            }
+        };
+
+        function changeLanguage(lang) {
+            const dictionary = translations[lang];
+            
+            document.documentElement.lang = lang;
+
+            document.getElementById('pageTitle').textContent = dictionary.pageTitle;
+            document.getElementById('headerH1').textContent = dictionary.headerH1;
+            document.getElementById('headerP').textContent = dictionary.headerP;
+            document.getElementById('coverH2').textContent = dictionary.coverH2;
+            document.getElementById('coverP').textContent = dictionary.coverP;
+            document.getElementById('pageDescription').textContent = dictionary.pageDescription;
+
+            document.getElementById('stream1Summary').textContent = dictionary.stream1Summary;
+            document.getElementById('stream2Summary').textContent = dictionary.stream2Summary;
+            document.getElementById('stream3Summary').textContent = dictionary.stream3Summary;
+            document.getElementById('stream4Summary').textContent = dictionary.stream4Summary;
+            
+            // Stream 1
+            document.getElementById('s1r1').textContent = dictionary.s1r1;
+            document.getElementById('s1r2').textContent = dictionary.s1r2;
+            document.getElementById('s1r3').textContent = dictionary.s1r3;
+            document.getElementById('s1r4').textContent = dictionary.s1r4;
+            document.getElementById('s1r5').textContent = dictionary.s1r5;
+            
+            // Stream 2
+            document.getElementById('s2r1').textContent = dictionary.s2r1;
+            document.getElementById('s2r2').textContent = dictionary.s2r2;
+            document.getElementById('s2r3').textContent = dictionary.s2r3;
+            document.getElementById('s2r4').textContent = dictionary.s2r4;
+            document.getElementById('s2r5').textContent = dictionary.s2r5;
+            document.getElementById('s2r6').textContent = dictionary.s2r6;
+            document.getElementById('s2r7').textContent = dictionary.s2r7;
+            document.getElementById('s2r8').textContent = dictionary.s2r8;
+            document.getElementById('s2r9').textContent = dictionary.s2r9;
+            document.getElementById('s2r10').textContent = dictionary.s2r10;
+
+            // Stream 3
+            document.getElementById('s3r1').textContent = dictionary.s3r1;
+            document.getElementById('s3r2').textContent = dictionary.s3r2;
+            document.getElementById('s3r3').textContent = dictionary.s3r3;
+            document.getElementById('s3r4').textContent = dictionary.s3r4;
+            document.getElementById('s3r5').textContent = dictionary.s3r5;
+            document.getElementById('s3r6').textContent = dictionary.s3r6;
+            document.getElementById('s3r7').textContent = dictionary.s3r7;
+            document.getElementById('s3r8').textContent = dictionary.s3r8;
+            document.getElementById('s3r9').textContent = dictionary.s3r9;
+            document.getElementById('s3r10').textContent = dictionary.s3r10;
+            document.getElementById('s3r11').textContent = dictionary.s3r11;
+            
+            // Stream 4
+            document.getElementById('s4r1').textContent = dictionary.s4r1;
+            document.getElementById('s4r2').textContent = dictionary.s4r2;
+            document.getElementById('s4r3').textContent = dictionary.s4r3;
+            document.getElementById('s4r4').textContent = dictionary.s4r4;
+            document.getElementById('s4r5').textContent = dictionary.s4r5;
+            document.getElementById('s4r6').textContent = dictionary.s4r6;
+            document.getElementById('s4r7').textContent = dictionary.s4r7;
+            document.getElementById('s4r8').textContent = dictionary.s4r8;
+            document.getElementById('s4r9').textContent = dictionary.s4r9;
+            document.getElementById('s4r10').textContent = dictionary.s4r10;
+            document.getElementById('s4r11').textContent = dictionary.s4r11;
+            document.getElementById('s4r12').textContent = dictionary.s4r12;
+            document.getElementById('s4r13').textContent = dictionary.s4r13;
+            document.getElementById('s4r14').textContent = dictionary.s4r14;
+            document.getElementById('s4r15').textContent = dictionary.s4r15;
+            document.getElementById('s4r16').textContent = dictionary.s4r16;
+            document.getElementById('s4r17').textContent = dictionary.s4r17;
+            document.getElementById('s4r18').textContent = dictionary.s4r18;
+            document.getElementById('s4r19').textContent = dictionary.s4r19;
+            document.getElementById('s4r20').textContent = dictionary.s4r20;
+            document.getElementById('s4r21').textContent = dictionary.s4r21;
+            document.getElementById('s4r22').textContent = dictionary.s4r22;
+            document.getElementById('s4r23').textContent = dictionary.s4r23;
+            document.getElementById('s4r24').textContent = dictionary.s4r24;
+            document.getElementById('s4r25').textContent = dictionary.s4r25;
+            document.getElementById('s4r26').textContent = dictionary.s4r26;
+            
+            const downloadButtons = document.querySelectorAll('.download-btn:not(.new-label)');
+            downloadButtons.forEach(btn => {
+                btn.textContent = dictionary.downloadBtn;
+            });
+            
+            const newLabels = document.querySelectorAll('.new-label');
+            newLabels.forEach(label => {
+                label.textContent = dictionary.newLabel;
+            });
+
+            document.getElementById('footerText').innerHTML = dictionary.footerText;
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            changeLanguage('si');
+        });
+    </script>
+</body>
+</html>
